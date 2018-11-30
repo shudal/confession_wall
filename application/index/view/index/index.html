@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://test.qaqly.com/?tdsourcetag=s_pctim_aiomsg -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/footer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>这是一个表白墙</title>
+
+
+
+</head>
+
+<!--大标题-->
+<body>
+
+<div class="header" style="color:white">
+
+    <input type="image"  class="logo" src="/static/img/logo新.png" width="30" height="30">
+    <h2>理里表白 </h2>
+
+</div>
+
+<!--尾部导航栏-->
+<div class="footer">
+
+    <input name="搜索" type="image" onclick="Sclick()" src="/static/img/find.png" width="30" height="30">
+
+    <input name="表白" type="image" class= "button" onclick="Bclick()" src="/static/img/添加.png" width="30" height="30">
+
+    <input name="更多" type="image" class="G" onclick="Gclick()" src="/static/img/更多.png" width="30"  height="30">
+
+    <ul class="long" >
+        <li><a href="overwall.html"><img src="/static/img/发送反馈.png" height="50"></a></li>
+        <li><a href=""><img src="/static/img/关于我们.png"height="50"></a></li>
+    </ul>
+
+    <ul class="find">
+        <input type="image" src="/static/img/发送.png" class="sending" onclick="on()" width="30" height="30">
+        <li><textarea class="finding" placeholder="搜索内容"></textarea></li>
+    </ul>
+
+</div>
+
+
+<!--表白展示-->
+<!--第一页面隐藏-->
+<div class="biaobai">
+    <main>
+
+        {volist name='infoList' id='vo'}
+        {if $vo['wall']['status']==1}
+        {if $vo['qq']==1}
+        <div {if $vo['sex']=='女'} class="box" {else /} class="box blue" {/if}>
+
+        <div class="user">
+
+            <span style="color:white;">{$vo['nickname']}</span>
+
+            <img src="{$vo['img']}" width="50" heigth="50">
+
+        </div>
+
+        <div class="content" style="color:white;">
+
+            {$vo['text']|raw}
+        </div>
+</div>
+
+{else /}
+
+<div class="box" style="background-color:rgb(242,242,242); front-color:black;">
+
+    <div class="user">
+
+        <span>外部QQ墙</span>
+
+        <img src="{$vo['wall']['img']}" width="50" heigth="50">
+
+    </div>
+
+    <div>
+        <a href="outwall/id/{$vo['id']}" class="content" style="color:black;">
+
+            {$vo['text']|raw}
+        </a>
+    </div>
+</div>
+{/if}
+{/if}
+{/volist}
+
+    </main>
+</div>
+
+<!--表白书写页面-->
+<form enctype="multipart/form-data" method="post" action="{:url('index/index/addInfo')}">
+
+    <div class="page">
+
+
+        <input class="back" onclick="back()" type="image" src="/static/img/关闭按钮.png">
+        <input class="on"   type="image" src="/static/img/发送.png">
+
+        <div class="nameput">
+            <input type="text" class="name" name="nickname" placeholder="请输入昵称" autofocus>
+
+        </div>
+        <hr class="lines"/>
+        <textarea class="mainput" name="text" placeholder="请输入表白内容" ></textarea>
+        <hr class="line"/>
+        <div class="check">
+
+            <div class="radio">
+
+                <input type="radio" name="sex" onclick="check1()" id="male" value="option1" >男
+
+            </div>
+            <div class="radio">
+
+                <input type="radio" name="sex" onclick="check2()" id="female" value="option2">女
+            </div>
+        </div>
+
+        <div id="imgPreview">
+            <div id="pic">
+                <!-- <span>上传头像</span> -->
+                <!-- <input class="pics"  onchange="changepic(this)" type="image" src="文件添加.png" width="30px" height="30px"> -->
+
+                <input type="file" id="file"
+                       class="filepath"  onchange="changepic(this)"
+                       accept="image/jpg,image/jpeg,image/png,image/PNG" name="img">
+
+            </div>
+            <img src="" id="img3">
+        </div>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+{volist name='infoList' id='vo'}
+{if $vo['wall']['status']==1}
+{if $vo['qq']==1}
+<div {if $vo['sex']=='女'} class="box" {else /} class="box blue" {/if}>
+
+<div class="user">
+
+    <span style="color:white;">{$vo['nickname']}</span>
+
+    <img src="{$vo['img']}" width="50" heigth="50">
+
+</div>
+
+<div class="content" style="color:white;">
+
+    {$vo['text']|raw}
+</div>
+</div>
+
+{else /}
+
+<div class="box" style="background-color:rgb(242,242,242); front-color:black;">
+
+    <div class="user">
+
+        <span>外部QQ墙</span>
+
+        <img src="{$vo['wall']['img']}" width="50" heigth="50">
+
+    </div>
+
+    <div>
+        <a href="outwall/id/{$vo['id']}" class="content" style="color:black;">
+
+            {$vo['text']|raw}
+        </a>
+    </div>
+</div>
+{/if}
+{/if}
+{/volist}
+</body>
+</html>
