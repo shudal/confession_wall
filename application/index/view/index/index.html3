@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://test.qaqly.com/?tdsourcetag=s_pctim_aiomsg -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/footer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>这是一个表白墙</title>
+
+
+
+</head>
+
+<!--大标题-->
+<body>
+
+<div class="header" style="color:white">
+
+    <input type="image"  class="logo" src="/static/img/logo新.png" width="30" height="30">
+    <h2>理里表白 </h2>
+
+</div>
+
+<!--尾部导航栏-->
+<div class="footer">
+
+    <input name="搜索" type="image" onclick="Sclick()" src="/static/img/find.png" width="30" height="30">
+
+    <input name="表白" type="image" class= "button" onclick="Bclick()" src="/static/img/添加.png" width="30" height="30">
+
+    <input name="更多" type="image" class="G" onclick="Gclick()" src="/static/img/更多.png" width="30"  height="30">
+
+    <ul class="long" >
+        <li><a href="overwall.html"><img src="/static/img/发送反馈.png" height="50"></a></li>
+        <li><a href=""><img src="/static/img/关于我们.png"height="50"></a></li>
+    </ul>
+
+    <ul class="find">
+        <input type="image" src="/static/img/发送.png" class="sending" onclick="on()" width="30" height="30">
+        <li><textarea class="finding" placeholder="搜索内容"></textarea></li>
+    </ul>
+
+</div>
+
+
+<!--表白展示-->
+<!--第一页面隐藏-->
+<div class="biaobai">
+    <main>
+
+        {volist name='infoList' id='vo'}
+        {if $vo['wall']['status']==1}
+        {if $vo['qq']==1}
+        <div {if $vo['sex']=='女'} class="box" {else /} class="box blue" {/if}>
+
+        <div class="user">
+
+            <span style="color:white;">{$vo['nickname']}</span>
+
+            <img src="{$vo['img']}" width="50" heigth="50">
+
+        </div>
+
+        <div class="content" style="color:white;">
+
+            {$vo['text']|raw}
+        </div>
+        <div class="contents text-muted">
+            {$vo['time']|date='M-d H:i'}
+        </div>
+</div>
+
+{else /}
+
+<div class="box" style="background-color:rgb(242,242,242); front-color:black;">
+
+    <div class="user">
+
+        <span></span>
+
+        <img src="{$vo['wall']['img']}" width="50" heigth="50">
+
+    </div>
+
+    <div>
+        <a href="outwall/id/{$vo['id']}" class="content" style="color:black;">
+
+            {$vo['text']|raw}
+        </a>
+    </div>
+
+    <div class="contents text-muted">
+        {$vo['time']|date='M-d H:i'}
+    </div>
+</div>
+{/if}
+{/if}
+{/volist}
+<button class="btn btn-primary btn-block"
+        style="magin-top:30px;background:#ed7253; border:none;"
+  id="more">More</button>
+    </main>
+</div>
+
+<!--表白书写页面-->
+<form enctype="multipart/form-data" method="post" action="{:url('index/index/addInfo')}">
+
+    <div class="page">
+
+
+        <input class="back" onclick="back()" type="image" src="/static/img/关闭按钮.png">
+        <input class="on"   type="image" src="/static/img/发送.png">
+
+        <div class="nameput">
+            <input type="text" class="name" name="nickname" placeholder="请输入昵称" autofocus>
+
+        </div>
+        <hr class="lines"/>
+        <textarea class="mainput" name="text" placeholder="请输入表白内容" ></textarea>
+        <hr class="line"/>
+        <div class="check">
+
+            <div class="radio">
+
+                <input type="radio" name="sex" onclick="check1()" id="male" value="option1" >男
+
+            </div>
+            <div class="radio">
+
+                <input type="radio" name="sex" onclick="check2()" id="female" value="option2">女
+            </div>
+        </div>
+        <style>
+
+            .but{
+                position:fixed;
+                top:85%;
+                left:70%;
+                width:30px;
+                height:15px;
+            }
+            .back{
+                background: rgba(156, 156, 156, 0.411);
+                width:200px;
+                /* height: 100px; */
+                position:fixed;
+                top:77%;
+                left:30%;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div class="htmleaf-container"> -->
+            <!-- Content -->
+            <!-- <div class="container"> -->
+                <!-- <div class="row"> -->
+                    <div class="col-md-9">
+                        <!-- <h3 class="page-header">Demo:</h3> -->
+                        <div class="img-container back">
+                            <img id="image" alt="">
+                        </div>
+                    </div>
+                    
+                <div class="row">
+                    <div class="col-md-9 docs-buttons" style="text-align: center;">
+                        <!-- <h3 class="page-header">Toolbar:</h3> -->
+    <div class="but">
+                        <div class="btn-group" >
+    
+                            <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                                <input class="sr-only" id="inputImage" name="file" type="file" accept="image/*">
+                                    选择图片
+                            </label>
+    
+                        </div>
+    
+                        <div class="btn-group btn-group-crop">
+                            <button class="btn btn-primary" data-method="getCroppedCanvas"  type="button">
+                                    上传头像
+                            </button>
+                        </div>
+   </div>
+    
+                        <!-- Show the cropped image in modal -->
+                        <div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button class="close" data-dismiss="modal" type="button" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="getCroppedCanvasTitle">Cropped</h4>
+                                    </div>
+                                    <div class="modal-body"></div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>
+                                        <a class="btn btn-primary" id="download" href="javascript:void(0);">Download</a>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div><!-- /.modal -->
+    
+                    </div><!-- /.docs-buttons -->
+                </div>
+
+
+  </form>
+      </div>
+
+
+
+
+        <script src="static\js\cropper.js"></script>
+        <script src="static\js\main330.js"></script>
+</body>
+</html>
+

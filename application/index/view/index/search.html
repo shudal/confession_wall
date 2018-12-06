@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://test.qaqly.com/?tdsourcetag=s_pctim_aiomsg -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/footer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>这是一个表白墙</title>
+
+
+
+</head>
+
+<!--大标题-->
+<body>
+
+<div class="header" style="color:white">
+
+  <h2>search result </h2>
+
+</div>
+
+<div class="biaobai">
+    <main>
+        {volist name='list' id='vo'}
+        {if $vo['wall']['status']==1}
+        {if $vo['qq']==1}
+        <div {if $vo['sex']=='女'} class="box" {else /} class="box blue" {/if}>
+
+        <div class="user">
+
+            <span style="color:white;">{$vo['nickname']}</span>
+
+            <img src="{$vo['img']}" width="50" heigth="50">
+
+        </div>
+
+        <div class="content" style="color:white;">
+
+            {$vo['text']|raw}
+        </div>
+        <div class="time text-muted">
+          {$vo["time"]|date='m.d H:i'}
+        </div>
+</div>
+
+{else /}
+<a href="outwall/id/{$vo['id']}" class="content" style="color:black;">
+<div class="box" style="background-color:rgb(242,242,242); front-color:black;">
+
+    <div class="user">
+
+        <span></span>
+
+        <img src="{$vo['wall']['img']}" width="50" heigth="50">
+
+    </div>
+
+    <div>
+      
+            {$vo['text']|raw}
+    
+    </div>
+    <div class="outtime text-muted">
+      {$vo["time"]|date='m.d H:i'}
+    </div>
+</div>
+</a>
+{/if}
+{/if}
+{/volist}
+</body>
+</html>

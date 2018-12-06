@@ -34,7 +34,7 @@ class Content extends Model
     }
 
     public function search($param){
-        $list = $this->where('text','like',$param)->with('wall')->select();
+        $list = $this->where('text','like','%'.$param.'%')->with('wall')->select();
         return $list;
     }
-}
+  }

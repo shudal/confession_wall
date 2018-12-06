@@ -223,3 +223,11 @@ list-style:none;
     margin:auto 0;
     top:20%;
 }
+.time{
+  position:relative;
+  top:0;
+}
+.outtime{
+  position:relative;
+  top:0;
+}

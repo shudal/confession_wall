@@ -35,7 +35,7 @@
     <input name="更多" type="image" class="G" onclick="Gclick()" src="/static/img/更多.png" width="30"  height="30">
 
     <ul class="long" >
-        <li><a href="overwall.html"><img src="/static/img/发送反馈.png" height="50"></a></li>
+        <li><a href=""><img src="/static/img/发送反馈.png" height="50"></a></li>
         <li><a href=""><img src="/static/img/关于我们.png"height="50"></a></li>
     </ul>
 
@@ -49,7 +49,7 @@
 
 <!--表白展示-->
 <!--第一页面隐藏-->
-<div class="biaobai">
+<<div class="biaobai">
     <main>
 
         {volist name='infoList' id='vo'}
@@ -69,10 +69,13 @@
 
             {$vo['text']|raw}
         </div>
+        <div class="time text-muted">
+          {$vo["time"]|date='m.d H:i'}
+        </div>
 </div>
 
 {else /}
-
+<a href="outwall/id/{$vo['id']}" class="content" style="color:black;">
 <div class="box" style="background-color:rgb(242,242,242); front-color:black;">
 
     <div class="user">
@@ -84,16 +87,19 @@
     </div>
 
     <div>
-        <a href="outwall/id/{$vo['id']}" class="content" style="color:black;">
-
+      
             {$vo['text']|raw}
-        </a>
+    
+    </div>
+    <div class="outtime text-muted">
+      {$vo["time"]|date='m.d H:i'}
     </div>
 </div>
+</a>
 {/if}
 {/if}
 {/volist}
-<button class="btn btn-primary btn-block"
+button class="btn btn-primary btn-block"
         style="magin-top:30px;background:#ed7253; border:none;"
   id="more">More</button>
     </main>

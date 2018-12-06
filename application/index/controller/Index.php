@@ -1,6 +1,7 @@
 <?php
 namespace app\index\controller;
 
+use think\facade\Hook;
 use think\Request;
 use think\Controller;
 use think\facade\Request as fRequest;
@@ -9,8 +10,10 @@ class Index extends Controller
 {
     public function index()
     {
-      $list = model('Content')->order('time','desc')->limit(20)->with('wall')->select();
+        $list = model('Content')->order('time','desc')->limit(20)->with('wall')->select();
 
+        Hook::add("Filter","app\\index\\behavior\\Filter");
+        $list = Hook::listen("Filter",$list)[0];
         $this->assign('infoList', $list);
         return view();
     }
@@ -19,7 +22,8 @@ class Index extends Controller
         $page = input("post.page");
         $list = model('Content')->order('time','desc')->page($page,20)->with('wall')->select();
         $this->assign('infoList',$list);
-        return view();
+        $html = $this->fetch();
+        return $html;
     }
 
     public function outwall($id){
@@ -47,7 +51,7 @@ class Index extends Controller
             if ($result == 1) {
                 return $this->redirect('index/index/index');
             } else {
-                return $this->error($result);
+                return $this->redirect('index/index/index');
             }
         }
     }
@@ -69,20 +73,11 @@ class Index extends Controller
     }
 
     //搜索功能，返回含有搜索字段的content
-    public function search(Request $request)
+    public function search($param)
     {
-        if ($request->isAjax()) {
-            $param = input('post.param');
-            return json(['url' => 'www.biaobai.cn/index.php/index/index/searchResult/param' . $param]);
-        }
-    }
-
-    public function searchRusult($param)
-    {
-        $result = model('Content')->search($param);
-        if ($result != 0) {
-            $this->assgin('list', $result);
-            return view();
-        }
+      $result = model('Content')->search($param);
+      $this->assign('list', $result);
+      return view();
+        
     }
 }

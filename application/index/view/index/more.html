@@ -15,10 +15,13 @@
 
     {$vo['text']|raw}
 </div>
+<<div class="time text-muted">
+  {$vo["time"]|date='m.d H:i'}
 </div>
+/div>
 
 {else /}
-
+ <a href="outwall/id/{$vo['id']}" class="content" style="color:black;">
 <div class="box" style="background-color:rgb(242,242,242); front-color:black;">
 
     <div class="user">
@@ -29,12 +32,14 @@
     </div>
 
     <div>
-        <a href="outwall/id/{$vo['id']}" class="content" style="color:black;">
-
+       
             {$vo['text']|raw}
-        </a>
     </div>
+<div class="outtime text-muted">
+  {$vo["time"]|date='m.d H:i'}
 </div>
+</div>
+</a>
 {/if}
 {/if}
 {/volist}

@@ -1,4 +1,5 @@
 var sex;
+var page=2;
 
 function Sclick(){
   $(".find").slideToggle("slow");
@@ -83,6 +84,31 @@ $(function(){
       }
       });
 });
+$(function(){
+  $("#more").click(function(){
+    $.ajax({
+      url:"/index/index/more",
+      type:'post',
+      data:{'page':page},
+      dataType:'json',
+      success:function(data){
+        $("#more").before(data);
+        page = page+1;
+      }
+    });
+  });
+});
+
+$(function(){
+  $(".sending").click(function(){
+    if(!$(".finding").val()){
+      alert('Please shuru');
+    }else{
+      window.location.href = '/index/index/search/param/'+$(".finding").val()
+    }
+  });
+});
+
 
 function jump(){
   window.location.href="index.html";
